@@ -1,0 +1,36 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: product-api-routing
+  namespace: frontend-ns
+spec:
+  hosts:
+    - product-api.internal #service entry fqdn
+  http:
+    - match:
+        - headers:
+            x-env-target:
+              exact: hello
+      route:
+        - destination:
+            host: service-b.rest-api-with-mesh.svc.cluster.local
+            port:
+              number: 8080
+    - match:
+        - headers:
+            x-env-target:
+              exact: dev
+      route:
+        - destination:
+            host: web-front-end.rest-api-with-mesh.svc.cluster.local
+            port:
+              number: 8080
+    - match:
+        - headers:
+            x-env-target:
+              exact: prod
+      route:
+        - destination:
+            host: product-api.product-ns-prod.svc.cluster.local
+            port:
+              number: 8080

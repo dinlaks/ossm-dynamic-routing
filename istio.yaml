@@ -1,0 +1,26 @@
+apiVersion: sailoperator.io/v1
+kind: Istio
+metadata:
+  name: default
+spec:
+  namespace: istio-system
+  updateStrategy:
+    type: InPlace
+  version: v1.24.6
+  values:
+    meshConfig:
+      defaultConfig:
+        proxyMetadata:
+          ISTIO_META_DNS_AUTO_ALLOCATE: "true"
+          ISTIO_META_DNS_CAPTURE: "true"
+    global:
+      proxy:
+        dnsCapture: true
+        dnsProxy:
+          enabled: true
+      extensionProviders:
+      - name: otel
+        opentelemetry:
+          port: 4317
+          service: otel-collector.opentelemetrycollector.svc.cluster.local
+
