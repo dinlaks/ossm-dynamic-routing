@@ -1,9 +1,9 @@
 apiVersion: networking.istio.io/v1
 kind: DestinationRule
 metadata:
-  name: service-b-destination-rule
+  name: backend-destination-rule
 spec:
-  host: service-b
+  host: backend
   subsets:
   - name: v1
     labels:

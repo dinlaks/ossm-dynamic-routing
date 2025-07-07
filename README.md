@@ -114,7 +114,7 @@ oc exec -n frontend-ns curl-test -- \
 Output:
 
 ```json
-{"message":"Hello World from qaß"}
+{"message":"Hello World from qa"}
 ```
 
 ## Test Header-Based Routing via front-end app

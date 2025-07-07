@@ -10,19 +10,10 @@ spec:
     - match:
         - headers:
             x-env-target:
-              exact: hello
-      route:
-        - destination:
-            host: service-b.rest-api-with-mesh.svc.cluster.local
-            port:
-              number: 8080
-    - match:
-        - headers:
-            x-env-target:
               exact: dev
       route:
         - destination:
-            host: service-b.dev.svc.cluster.local
+            host: backend.dev.svc.cluster.local
             port:
               number: 8080
     - match:
@@ -31,7 +22,7 @@ spec:
               exact: prod
       route:
         - destination:
-            host: service-b.prod.svc.cluster.local
+            host: backend.prod.svc.cluster.local
             port:
               number: 8080
     - match:
@@ -40,6 +31,6 @@ spec:
               exact: qa
       route:
         - destination:
-            host: service-b.qa.svc.cluster.local
+            host: backend.qa.svc.cluster.local
             port:
               number: 8080

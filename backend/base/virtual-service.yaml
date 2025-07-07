@@ -1,20 +1,20 @@
 apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
-  name: service-b
+  name: backend
 spec:
   hosts:
-    - service-b
+    - backend
   http:
   - route:
     - destination:
-        host: service-b
+        host: backend
         subset: v1
         port:
           number: 8080
       weight: 100
     - destination:
-        host: service-b
+        host: backend
         subset: v2
         port:
           number: 8080
