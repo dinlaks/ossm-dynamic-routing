@@ -14,6 +14,8 @@ RUN npm run build
 # Step 2: Serve with httpd (UBI)
 FROM registry.access.redhat.com/ubi8/httpd-24
 
+RUN rm -f /etc/httpd/conf.d/ssl.conf
+
 # Copy built files into httpd root
 COPY --from=builder /opt/app-root/src/dist/ /var/www/html/
 
