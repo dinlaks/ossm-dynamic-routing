@@ -72,6 +72,33 @@ oc exec -n frontend-ns curl-test -- \
 Output:
 
 ```json
-{"message":"Hello World from web-front-end"}
+{"message":"Hello World from dev"}
 ```
 
+header `prod`
+
+```bash
+oc exec -n frontend-ns curl-test -- \
+  curl -s -H "x-env-target: prod" \
+       http://product-api.internal/hello
+```
+
+Output:
+
+```json
+{"message":"Hello World from prod"}
+```
+
+header `qa`
+
+```bash
+oc exec -n frontend-ns curl-test -- \
+  curl -s -H "x-env-target: qa" \
+       http://product-api.internal/hello
+```
+
+Output:
+
+```json
+{"message":"Hello World from qaß"}
+```
