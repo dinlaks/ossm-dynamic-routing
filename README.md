@@ -15,6 +15,10 @@ See: (OSSM3 Demo SetUp)[https://github.com/bugbiteme/ossm-3-demo]
 
 Apply `istio.yaml` to update it to handle DNS allocation
 
+```bash
+oc apply -f istio.yaml
+```
+
 Added config:
 
 ```yaml

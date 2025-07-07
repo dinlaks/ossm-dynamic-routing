@@ -1,0 +1,8 @@
+kind: Kustomization
+
+namespace: dev 
+
+resources:
+  - ../../base
+  - namespace.yaml
+  - deployment.yaml
