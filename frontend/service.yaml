@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: flask-front-end
+    app.kubernetes.io/component: flask-front-end
+    app.kubernetes.io/instance: flask-front-end
+    app.kubernetes.io/name: flask-front-end
+    app.kubernetes.io/part-of: flask-front-end
+    app.openshift.io/runtime-version: latest
+  name: flask-front-end
+  namespace: frontend-ns
+spec:
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: 8080-tcp
+    port: 8080
+  selector:
+    app: flask-front-end
+    deployment: flask-front-end

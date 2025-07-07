@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Hello</title>
+  <script>
+    async function callBackend() {
+      const target = document.getElementById("env-select").value;
+      try {
+        const response = await fetch('/call-api?env=' + target);
+        const text = await response.text();
+        document.getElementById('result').innerText = text;
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('result').innerText = 'Error calling API';
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Select Header</h1>
+
+  <label for="env-select">Choose environment:</label>
+  <select id="env-select">
+    <option value="dev">x-env-target: dev</option>
+    <option value="prod">x-env-target: prod</option>
+    <option value="qa">x-env-target: qa</option>
+  </select>
+
+  <button onclick="callBackend()">Call Backend</button>
+  <p id="result"></p>
+</body>
+</html>

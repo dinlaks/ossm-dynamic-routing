@@ -32,34 +32,48 @@ Added config:
 
 ## Deploy Resources
 
+### Deploy Back-End Services
+
+Dev
+
 ```bash
-oc apply -f frontend  
+oc apply -k backend/overlays/dev
+```
+
+Prod
+
+```bash
+oc apply -k backend/overlays/prod
+```
+
+QA
+
+```bash
+oc apply -k backend/overlays/qa
+```
+
+
+### Deploy Front-End Service
+
+```bash
+oc apply -k frontend  
 ```
 
 Sample output:
 
 ```bash
 namespace/frontend-ns created
+service/flask-front-end created
+deployment.apps/flask-front-end created
 serviceentry.networking.istio.io/product-api-entry created
-pod/curl-test created
 virtualservice.networking.istio.io/product-api-routing created
+route.route.openshift.io/flask-front-end created
+pod/curl-test created
 ```
 
-## Test Header-Based Routing
+## Test Header-Based Routing via pod network
 
-header `hello`
-
-```bash
-oc exec -n frontend-ns curl-test -- \
-  curl -s -H "x-env-target: hello" \
-       http://product-api.internal/hello
-```
-
-Output:
-
-```json
-{"message":"Hello World from service-b-v2"}
-```
+This uses a test pod named `curl-test` to ensure header-based routing works
 
 header `dev`
 
@@ -101,4 +115,37 @@ Output:
 
 ```json
 {"message":"Hello World from qaß"}
+```
+
+## Test Header-Based Routing via front-end app
+
+The deployed application in the `frontend-ns` namespace is a Python/Flask app
+
+It is currently exposed as a route, but feel free to create an ingress gateway if required
+
+```bash
+ oc get routes                                                                      
+NAME              HOST/PORT                                                                     
+flask-front-end   flask-front-end-frontend-ns.app.<domain>
+```
+
+This is a browser based app that allows you to test responses based on headers from a drop-down list
+
+![alt text](img/image01.png)
+
+![alt text](img/image02.png)
+
+Source code found at `./code/flask`
+
+```python
+@app.route("/call-api")
+def call_api():
+...
+
+    headers = {"x-env-target": env}
+...
+
+        response = requests.get("http://product-api.internal/hello", headers=headers) 
+        return Response(response.content, status=response.status_code, mimetype="text/plain")
+...
 ```

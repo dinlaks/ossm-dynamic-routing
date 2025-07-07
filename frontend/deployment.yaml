@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: flask-front-end
+    app.kubernetes.io/component: flask-front-end
+    app.kubernetes.io/instance: flask-front-end
+    app.kubernetes.io/name: flask-front-end
+    app.kubernetes.io/part-of: flask-front-end
+    app.openshift.io/runtime: python
+    app.openshift.io/runtime-namespace: frontend-ns
+  name: flask-front-end
+  namespace: frontend-ns
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: flask-front-end
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+      creationTimestamp: null
+      labels:
+        app: flask-front-end
+        deployment: flask-front-end
+    spec:
+      containers:
+      - image: quay.io/llevy/flask-front-end:latest
+        imagePullPolicy: Always
+        name: flask-front-end
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
