@@ -2,7 +2,7 @@ kind: Kustomization
   
 resources:
 - service-back-end.yaml
-- destination-rule-back-end.yaml
-- virtual-service-back-end.yaml
+- destination-rule.yaml
+- virtual-service.yaml
 - pod-monitor.yaml
 
