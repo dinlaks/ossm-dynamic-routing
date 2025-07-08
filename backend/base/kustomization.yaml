@@ -1,6 +1,7 @@
 kind: Kustomization
   
 resources:
+- rolebinding.yaml
 - service-back-end.yaml
 - destination-rule.yaml
 - virtual-service.yaml
