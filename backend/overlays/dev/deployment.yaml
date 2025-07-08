@@ -34,7 +34,7 @@ spec:
         - name: SERVICE_LOCAL
           value: dev
         - name: SERVICE_REMOTE
-          value: service-a
+          value: not-in-use
         image: quay.io/llevy/service-b:v1
         ports:
         - containerPort: 8080
