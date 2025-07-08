@@ -2,24 +2,29 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: argocd-app-role
+  namespace: frontend-ns
 rules:
-- apiGroups: ["networking.istio.io"]
-  resources: ["virtualservices", "destinationrules"]
-  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-- apiGroups: ["monitoring.coreos.com"]
-  resources: ["podmonitors"]
+- apiGroups: [""]
+  resources: ["pods", "services"]
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 - apiGroups: ["apps"]
   resources: ["deployments"]
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-- apiGroups: [""]
-  resources: ["services"]
+- apiGroups: ["route.openshift.io"]
+  resources: ["routes"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["networking.istio.io"]
+  resources: ["virtualservices", "destinationrules", "serviceentries"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["monitoring.coreos.com"]
+  resources: ["podmonitors"]
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: argocd-app-rolebinding
+  namespace: frontend-ns
 subjects:
 - kind: ServiceAccount
   name: openshift-gitops-argocd-application-controller
