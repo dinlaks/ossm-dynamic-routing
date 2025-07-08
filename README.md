@@ -32,7 +32,23 @@ Added config:
 
 ## Deploy Resources
 
-### Deploy Back-End Services
+### GitOps
+
+If using GitOps/ArgoCD, deploy front and back-end resources by applying the following
+
+```bash
+oc apply -f gitops/header-routing.yaml    
+```
+
+Example output:
+```bash
+application.argoproj.io/header-routing created
+```
+
+### Non-GitOps
+
+If you are not using GitOps, manually deploy the following
+#### Deploy Back-End Services
 
 Dev
 
@@ -53,7 +69,7 @@ oc apply -k backend/overlays/qa
 ```
 
 
-### Deploy Front-End Service
+#### Deploy Front-End Service
 
 ```bash
 oc apply -k frontend  
