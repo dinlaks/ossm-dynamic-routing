@@ -1,5 +1,7 @@
 kind: Kustomization
 
+namespace: frontend-ns 
+
 resources:
   - namespace.yaml 
   - deployment.yaml

@@ -2,7 +2,6 @@ apiVersion: networking.istio.io/v1beta1
 kind: ServiceEntry
 metadata:
   name: product-api-entry
-  namespace: frontend-ns
 spec:
   hosts:
     - product-api.internal #defined here as service entry - routing in VSoc

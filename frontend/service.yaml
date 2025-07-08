@@ -9,7 +9,6 @@ metadata:
     app.kubernetes.io/part-of: flask-front-end
     app.openshift.io/runtime-version: latest
   name: flask-front-end
-  namespace: frontend-ns
 spec:
   ipFamilies:
   - IPv4
