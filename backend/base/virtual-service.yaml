@@ -13,9 +13,3 @@ spec:
         port:
           number: 8080
       weight: 100
-    - destination:
-        host: backend
-        subset: v2
-        port:
-          number: 8080
-      weight: 0
